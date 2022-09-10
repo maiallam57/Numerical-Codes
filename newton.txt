@@ -1,0 +1,52 @@
+import numpy as np
+import math
+import sympy as sym
+
+error = 0.0025
+x_old, x_new = [[1],[1]], [[],[]]
+matrix_mul, matrix_sub = [], []
+
+def get_data():
+    try:
+        global equation1,equation2, x_old, error
+        equation1 = input("please enter the equation 1: ").lower()
+        equation2 = input("please enter the equation 2: ").lower()
+        r = float(input("please enter a: "))
+        x_old[0].append(r)
+        s = float(input("please enter b: "))
+        x_old[1].append(s)
+        error = float(input("please enter error: "))
+    except:
+        print("invalid input... please try again")
+        get_data()
+
+x,y=1,1
+x = sym.Symbol('x')
+y = sym.Symbol('y')
+
+equation1  = x2+y2-4
+equation2  = 2x-y**2
+ 
+jacobian_matrix = [[equation1.diff('x'), equation1.diff('y')],[equation2.diff('x'), equation2.diff('y')]]
+
+jacobian_inverse_matrix = [[equation1.diff('x'), equation1.diff('y')],[equation2.diff('x'), equation2.diff('y')]]-1
+
+equation_matrix = [[eval(str(equation1), {'x': x,'y': y })],
+                   [eval(str(equation2), {'x': x,'y': y})]]
+
+print("eq 1 = ", equation1)
+print("eq 2 = ", equation2)
+print("x0= ", x)
+print("jacobian matrix= ", jacobian_matrix)
+print("jacobian inverse matrix =", jacobian_inverse_matrix)
+
+np.multiply(jacobian_inverse_matrix, equation_matrix)
+np.subtract(x, matrix_mul)
+
+x_new = matrix_sub 
+
+print("matrix_mul= ", matrix_mul)
+print("matrix sub= ", matrix_sub)
+
+print("x0= ", x)
+print("x1= ", y)
